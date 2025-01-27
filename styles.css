@@ -1,0 +1,17 @@
+video, canvas {
+    width: 50%;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    position: relative;
+    left: 25%;
+}
+
+#capture, #generatePdf {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+img {
+    min-width: 150px;
+    min-height: 50;
+}
