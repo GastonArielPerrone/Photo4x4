@@ -40,13 +40,23 @@ generatePdfButton.addEventListener('click', () => {
     const imageHeight = 30;
     const margin = 10;
 
-    // Tomar la imagen del canvas y agregarla al PDF
+    // Calcular la posición del texto
+    const currentDate = new Date().toLocaleString(); // Formato de fecha y hora
+    let y = margin;
+
+    // Agregar texto al PDF antes de las imágenes
+    doc.setFontSize(12);
+    doc.text('Estas imágenes fueron generadas desde "PHOTO4x4"', margin, y);
+    doc.text('Fecha: ' + currentDate, margin, y + 10);
+
+    // Ajustar la posición de las imágenes debajo del texto
+    y += 30 + margin; // El texto ocupa 30 px de alto más el margen
+
+    // Tomar la imagen del canvas
     const imgData = canvas.toDataURL('image/jpeg');
 
     // Generar una cuadrícula 4x4 en el PDF
     let x = margin;
-    let y = margin;
-    let count = 0;
 
     for (let col = 0; col < 4; col++) {
         // Agregar la imagen en la posición x
@@ -54,25 +64,7 @@ generatePdfButton.addEventListener('click', () => {
 
         // Actualizar la posición para la siguiente imagen
         x += imageWidth + margin;
-
-        count++;
-
-        // Si ya se alcanzó el límite de 4x4, ir a la siguiente página
-        if (count % 4 === 0 && count !== 16) {
-            doc.addPage();
-            x = margin;
-            y = margin;
-        }
     }
-
-    // Calcular posición del texto justo debajo de las fotos
-    y += imageHeight + margin;
-
-    // Agregar texto al PDF
-    const currentDate = new Date().toLocaleString(); // Formato de fecha y hora
-    doc.setFontSize(12);
-    doc.text('Estas imágenes fueron generadas desde "PHOTO4x4"', margin, y);
-    doc.text('Fecha: ' + currentDate, margin, y + 10);
 
     // Guardar el PDF
     doc.save('my_photo.pdf');
