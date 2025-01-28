@@ -5,8 +5,8 @@ const generatePdfButton = document.getElementById('generatePdf');
 const ctx = canvas.getContext('2d');
 
 // Ajustar el canvas a 4x4 cm en píxeles (151x151 píxeles a 96 DPI)
-canvas.width = 151;
-canvas.height = 151;
+canvas.width = 160;
+canvas.height = 160;
 
 // Acceder a la cámara
 navigator.mediaDevices.getUserMedia({ video: true })
@@ -19,15 +19,35 @@ navigator.mediaDevices.getUserMedia({ video: true })
 
 // Capturar la imagen del video
 captureButton.addEventListener('click', () => {
-    // Dibujar la imagen del video en el canvas con las dimensiones de la vista previa
-    ctx.drawImage(video,0,0,canvas.width, canvas.height);
-
-    // Guardar la imagen automáticamente como .jpg
-    const imgData = canvas.toDataURL('image/jpeg');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 160; // 4cm (ancho) para tamaño 4x4
+    canvas.height = 160; // 4cm (alto)
+  
+    // Dibujar el frame del video
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  
+    // Procesar el fondo (cambiarlo a blanco)
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imageData.data;
+  
+    for (let i = 0; i < data.length; i += 4) {
+      const r = data[i], g = data[i + 1], b = data[i + 2];
+  
+      // Detectar fondo claro y cambiarlo a blanco
+      if (r > 200 && g > 200 && b > 200) { // Fondo claro
+        data[i] = 255; // Blanco R
+        data[i + 1] = 255; // Blanco G
+        data[i + 2] = 255; // Blanco B
+      }
+    }
+  
+    ctx.putImageData(imageData, 0, 0);
+  
+    // Guardar automáticamente la imagen procesada
     const link = document.createElement('a');
-    link.href = imgData;
-    link.download = 'photo4x4.jpg'; // Nombre del archivo
-    link.click();
+    link.download = 'foto_fondo_blanco.png'; // Nombre del archivo
+    link.href = canvas.toDataURL('image/png'); // Imagen procesada en formato PNG
+    link.click(); // Simula un clic para descargar automáticamente
 });
 
 // Generar el PDF con las imágenes capturadas
