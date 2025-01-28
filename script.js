@@ -20,7 +20,7 @@ navigator.mediaDevices.getUserMedia({ video: true })
 // Capturar la imagen del video
 captureButton.addEventListener('click', () => {
     // Dibujar la imagen del video en el canvas con las dimensiones de la vista previa
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    ctx.drawImage(video,0,0,canvas.width, canvas.height);
 
     // Guardar la imagen automáticamente como .jpg
     const imgData = canvas.toDataURL('image/jpeg');
@@ -44,15 +44,10 @@ generatePdfButton.addEventListener('click', () => {
     const currentDate = new Date().toLocaleString(); // Formato de fecha y hora
     let y = margin;
 
-    // Cargar el logo como una imagen local (si el archivo está en el mismo directorio)
-    const logo = new Image();
-    logo.src = 'content/Photo4x4.png'; // Ruta del archivo del logo
-
-
-    // Agregar texto después del logo
+    // Agregar texto al PDF antes de las imágenes
     doc.setFontSize(12);
-    doc.text('Estas imágenes fueron generadas desde:' + ' "PHOTO4x4". ', margin + 50, y);
-    doc.text('Fecha: ' + currentDate, margin + 50, y + 10);
+    doc.text('Estas imágenes fueron generadas desde "PHOTO4x4"', margin, y);
+    doc.text('Fecha: ' + currentDate, margin, y + 10);
 
     // Ajustar la posición de las imágenes debajo del texto
     y += 30 + margin; // El texto ocupa 30 px de alto más el margen
@@ -65,7 +60,7 @@ generatePdfButton.addEventListener('click', () => {
 
     for (let col = 0; col < 4; col++) {
         // Agregar la imagen en la posición x
-        oc.addImage(imgData, 'JPEG', x, y, imageWidth, imageHeight);
+        doc.addImage(imgData, 'JPEG', x, y, imageWidth, imageHeight);
 
         // Actualizar la posición para la siguiente imagen
         x += imageWidth + margin;
@@ -73,5 +68,4 @@ generatePdfButton.addEventListener('click', () => {
 
     // Guardar el PDF
     doc.save('my_photo.pdf');
-}
-);
+});
