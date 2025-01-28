@@ -52,12 +52,9 @@ generatePdfButton.addEventListener('click', () => {
         // Agregar el logo al PDF
         doc.addImage(logo, 'PNG', margin, y, 40, 40); // Ajustar el tamaño del logo
 
-        // Actualizar la posición para el texto debajo del logo
-        y += 50; // Ajustamos la posición para no sobreponer el logo
-
         // Agregar texto después del logo
         doc.setFontSize(12);
-        doc.text('Estas imágenes fueron generadas desde:', margin + 50, y);
+        doc.text('Estas imágenes fueron generadas desde:' + ' "PHOTO4x4". ', margin + 50, y);
         doc.text('Fecha: ' + currentDate, margin + 50, y + 10);
 
         // Ajustar la posición de las imágenes debajo del texto
