@@ -20,7 +20,7 @@ navigator.mediaDevices.getUserMedia({ video: true })
 // Capturar la imagen del video
 captureButton.addEventListener('click', () => {
     // Dibujar la imagen del video en el canvas con las dimensiones de la vista previa
-    ctx.drawImage(video,0,0,canvas.width, canvas.height);
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
     // Guardar la imagen automáticamente como .jpg
     const imgData = canvas.toDataURL('image/jpeg');
@@ -46,7 +46,7 @@ generatePdfButton.addEventListener('click', () => {
 
     // Cargar el logo como una imagen local (si el archivo está en el mismo directorio)
     const logo = new Image();
-    logo.src = 'content/Photo4x4.png'; // Ruta del archivo del logo
+    logo.src = 'logo.png'; // Ruta del archivo del logo
 
     logo.onload = () => {
         // Agregar el logo al PDF
@@ -55,28 +55,29 @@ generatePdfButton.addEventListener('click', () => {
         // Actualizar la posición para el texto debajo del logo
         y += 50; // Ajustamos la posición para no sobreponer el logo
 
-    // Agregar texto al PDF antes de las imágenes
-    doc.setFontSize(12);
-    doc.text('Estas imágenes fueron generadas desde "PHOTO4x4"', margin, y);
-    doc.text('Fecha: ' + currentDate, margin, y + 10);
+        // Agregar texto después del logo
+        doc.setFontSize(12);
+        doc.text('Estas imágenes fueron generadas desde:', margin + 50, y);
+        doc.text('Fecha: ' + currentDate, margin + 50, y + 10);
 
-    // Ajustar la posición de las imágenes debajo del texto
-    y += 30 + margin; // El texto ocupa 30 px de alto más el margen
+        // Ajustar la posición de las imágenes debajo del texto
+        y += 30 + margin; // El texto ocupa 30 px de alto más el margen
 
-    // Tomar la imagen del canvas
-    const imgData = canvas.toDataURL('image/jpeg');
+        // Tomar la imagen del canvas
+        const imgData = canvas.toDataURL('image/jpeg');
 
-    // Generar una cuadrícula 4x4 en el PDF
-    let x = margin;
+        // Generar una cuadrícula 4x4 en el PDF
+        let x = margin;
 
-    for (let col = 0; col < 4; col++) {
-        // Agregar la imagen en la posición x
-        doc.addImage(imgData, 'JPEG', x, y, imageWidth, imageHeight);
+        for (let col = 0; col < 4; col++) {
+            // Agregar la imagen en la posición x
+            doc.addImage(imgData, 'JPEG', x, y, imageWidth, imageHeight);
 
-        // Actualizar la posición para la siguiente imagen
-        x += imageWidth + margin;
-    }
+            // Actualizar la posición para la siguiente imagen
+            x += imageWidth + margin;
+        }
 
-    // Guardar el PDF
-    doc.save('my_photo.pdf');
-}});
+        // Guardar el PDF
+        doc.save('my_photo.pdf');
+    };
+});
