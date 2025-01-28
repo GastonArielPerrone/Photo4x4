@@ -36,8 +36,8 @@ generatePdfButton.addEventListener('click', () => {
     const doc = new jsPDF();
 
     // Definir el tamaño de las imágenes (ajustable)
-    const imageWidth = 30
-    const imageHeight = 30
+    const imageWidth = 30;
+    const imageHeight = 30;
     const margin = 10;
 
     // Tomar la imagen del canvas y agregarla al PDF
@@ -48,25 +48,25 @@ generatePdfButton.addEventListener('click', () => {
     let y = margin;
     let count = 0;
 
-        for (let col = 0; col < 4; col++) {
-            // Agregar la imagen en la posición x
-            doc.addImage(imgData, 'JPEG', x, y, imageWidth, imageHeight);
+    for (let col = 0; col < 4; col++) {
+        // Agregar la imagen en la posición x
+        doc.addImage(imgData, 'JPEG', x, y, imageWidth, imageHeight);
 
-            // Actualizar la posición para la siguiente imagen
-            x += imageWidth + margin;
+        // Actualizar la posición para la siguiente imagen
+        x += imageWidth + margin;
 
-            count++;
+        count++;
 
-            // Si ya se alcanzó el límite de 4x4, ir a la siguiente página
-            if (count % 4 === 0 && count !== 16) {
-                doc.addPage();
-                x = margin;
-                y = margin;
-            }
+        // Si ya se alcanzó el límite de 4x4, ir a la siguiente página
+        if (count % 4 === 0 && count !== 16) {
+            doc.addPage();
+            x = margin;
+            y = margin;
         }
+    }
 
-    // Calcular posición del texto justo debajo de la cuadrícula
-    y += margin;
+    // Calcular posición del texto justo debajo de las fotos
+    y += imageHeight + margin;
 
     // Agregar texto al PDF
     const currentDate = new Date().toLocaleString(); // Formato de fecha y hora
