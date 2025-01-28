@@ -44,6 +44,17 @@ generatePdfButton.addEventListener('click', () => {
     const currentDate = new Date().toLocaleString(); // Formato de fecha y hora
     let y = margin;
 
+    // Cargar el logo como una imagen local (si el archivo está en el mismo directorio)
+    const logo = new Image();
+    logo.src = 'contenten/Photo4x4.png'; // Ruta del archivo del logo
+
+    logo.onload = () => {
+        // Agregar el logo al PDF
+        doc.addImage(logo, 'PNG', margin, y, 40, 40); // Ajustar el tamaño del logo
+
+        // Actualizar la posición para el texto debajo del logo
+        y += 50; // Ajustamos la posición para no sobreponer el logo
+
     // Agregar texto al PDF antes de las imágenes
     doc.setFontSize(12);
     doc.text('Estas imágenes fueron generadas desde "PHOTO4x4"', margin, y);
@@ -68,4 +79,4 @@ generatePdfButton.addEventListener('click', () => {
 
     // Guardar el PDF
     doc.save('my_photo.pdf');
-});
+}});
