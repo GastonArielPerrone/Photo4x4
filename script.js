@@ -46,7 +46,7 @@ generatePdfButton.addEventListener('click', () => {
 
     // Cargar el logo como una imagen local (si el archivo está en el mismo directorio)
     const logo = new Image();
-    logo.src = 'contenten/Photo4x4.png'; // Ruta del archivo del logo
+    logo.src = 'content/Photo4x4.png'; // Ruta del archivo del logo
 
     logo.onload = () => {
         // Agregar el logo al PDF
