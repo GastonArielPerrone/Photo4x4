@@ -48,33 +48,30 @@ generatePdfButton.addEventListener('click', () => {
     const logo = new Image();
     logo.src = 'content/Photo4x4.png'; // Ruta del archivo del logo
 
-    logo.onload = () => {
-        // Agregar el logo al PDF
-        doc.addImage(logo, 'PNG', margin, y, 40, 40); // Ajustar el tamaño del logo
 
-        // Agregar texto después del logo
-        doc.setFontSize(12);
-        doc.text('Estas imágenes fueron generadas desde:' + ' "PHOTO4x4". ', margin + 50, y);
-        doc.text('Fecha: ' + currentDate, margin + 50, y + 10);
+    // Agregar texto después del logo
+    doc.setFontSize(12);
+    doc.text('Estas imágenes fueron generadas desde:' + ' "PHOTO4x4". ', margin + 50, y);
+    doc.text('Fecha: ' + currentDate, margin + 50, y + 10);
 
-        // Ajustar la posición de las imágenes debajo del texto
-        y += 30 + margin; // El texto ocupa 30 px de alto más el margen
+    // Ajustar la posición de las imágenes debajo del texto
+    y += 30 + margin; // El texto ocupa 30 px de alto más el margen
 
-        // Tomar la imagen del canvas
-        const imgData = canvas.toDataURL('image/jpeg');
+    // Tomar la imagen del canvas
+    const imgData = canvas.toDataURL('image/jpeg');
 
-        // Generar una cuadrícula 4x4 en el PDF
-        let x = margin;
+    // Generar una cuadrícula 4x4 en el PDF
+    let x = margin;
 
-        for (let col = 0; col < 4; col++) {
-            // Agregar la imagen en la posición x
-            doc.addImage(imgData, 'JPEG', x, y, imageWidth, imageHeight);
+    for (let col = 0; col < 4; col++) {
+        // Agregar la imagen en la posición x
+        oc.addImage(imgData, 'JPEG', x, y, imageWidth, imageHeight);
 
-            // Actualizar la posición para la siguiente imagen
-            x += imageWidth + margin;
-        }
+        // Actualizar la posición para la siguiente imagen
+        x += imageWidth + margin;
+    }
 
-        // Guardar el PDF
-        doc.save('my_photo.pdf');
-    };
-});
+    // Guardar el PDF
+    doc.save('my_photo.pdf');
+}
+);
