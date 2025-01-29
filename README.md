@@ -1,1 +1,3 @@
-This project is a capture photo instantly about CV's and others temarys under the institutes.
+# Bienvenidos a Photo4x4
+Este proyecto tiene como objetivo:
+a_sacar una captura instatntánea apta para documentacones
