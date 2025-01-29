@@ -12,9 +12,7 @@
     <link rel="stylesheet" href="styles.css" type="text/css">
     <link rel="icon" href="content/Photo4x4.ico">
     <script src="https://kit.fontawesome.com/61f405be4a.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.10.0"></script>
 </head>
 <body>
     <div class="container mt-5">
@@ -22,7 +20,9 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <h1 class="text-center mb-4">Photo 4x4</h1>
-                <p>Bienvenido/a al estudio de fotografías 4x4</p>
+                <p>¡Bienvenido/a al estudio de fotografías 4x4! Se aconseja que busque un fondo celeste/blanco según sea el motivo 
+                    que necesite de este servicio.
+                </p>
                 <video id="video" autoplay playsinline class="mb-3"></video>
                 <button id="capture" class="btn btn-primary"><i class="fa-solid fa-camera" style="color: #fafafa;"></i></button> <button id="generatePdf" class="btn btn-success mt-3"><i class="fa-regular fa-file-pdf" style="color: #ffffff;"></i></button>
                 <canvas id="canvas" class="mb-3"></canvas>
