@@ -1,12 +1,14 @@
+// DOM
 const video = document.getElementById("video");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const captureButton = document.getElementById("capture");
 const generatePdfButton = document.getElementById("generatePdf");
 const capturedImageElement = document.getElementById("capturedImage");
+// Variable use about condition if the image are capturated.
 let capturedImage = null;
 
-// Configurar la cámara
+// Camera is configurated.
 async function setupCamera() {
     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
     video.srcObject = stream;
@@ -16,12 +18,12 @@ async function setupCamera() {
     canvas.height = video.videoHeight;
 }
 
-// Cargar modelo de segmentación de cuerpo
+// Charge a segmentation of human body.
 async function loadBodyPix() {
     return await bodyPix.load();
 }
 
-// Procesar video y remover fondo
+// Process the video and remove background.
 async function processVideo() {
     const net = await loadBodyPix();
 
@@ -37,11 +39,11 @@ async function processVideo() {
         const pixels = imageData.data;
 
         for (let i = 0; i < pixels.length; i += 4) {
-            if (segmentation.data[i / 4] === 0) { // Si el píxel no es parte de la persona
-                pixels[i] = 255; // Rojo
-                pixels[i + 1] = 255; // Verde
-                pixels[i + 2] = 255; // Azul
-                pixels[i + 3] = 255; // Opacidad total
+            if (segmentation.data[i / 4] === 0) { // If px is not person.
+                pixels[i] = 255; // Red
+                pixels[i + 1] = 255; // Green
+                pixels[i + 2] = 255; // Blue
+                pixels[i + 3] = 255; // Opacity total
             }
         }
 
@@ -51,13 +53,13 @@ async function processVideo() {
     detect();
 }
 
-// Capturar imagen correctamente
+// Capture the image.
 captureButton.addEventListener("click", () => {
     const imageCaptured = document.getElementById("capturedImage");
     const image = canvas.toDataURL("image/jpeg", 1.0);
     imageCaptured.style="display: block";
     capturedImage = image;
-    capturedImageElement.src = image; // Mostrar la imagen capturada en el HTML
+    capturedImageElement.src = image; // Print the captured image.
 
     const link = document.createElement("a");
     link.href = image;
@@ -65,7 +67,7 @@ captureButton.addEventListener("click", () => {
     link.click();
 });
 
-// Generar PDF
+// Create PDF
 generatePdfButton.addEventListener("click", () => {
     if (!capturedImage) {
         alert("Primero captura una imagen.");
@@ -75,16 +77,16 @@ generatePdfButton.addEventListener("click", () => {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    // Añadir texto superior
+    // Add text with actuallity date.
     doc.text("Estas imágenes han sido diseñadas por PHOTO4X4", 10, 10);
     const date = new Date().toLocaleString();
     doc.text(`Fecha y Hora: ${date}`, 10, 20);
 
-    // Insertar la imagen 4 veces en tamaño 4x4 cm con borde visible
+    // Inserte the image x 4 in PDF
     for (let i = 0; i < 2; i++) {
         for (let j = 0; j < 2; j++) {
             doc.addImage(capturedImage, "JPEG", 10 + j * 45, 30 + i * 45, 40, 40);
-            // Añadir borde alrededor de la imagen
+            // Add border.
             doc.setLineWidth(0.5);
             doc.rect(10 + j * 45, 30 + i * 45, 40, 40);
         }
