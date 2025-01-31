@@ -1,17 +1,75 @@
+/* Estilo general */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Imagen del logo */
+#image {
+    display: block;
+    margin: 0 auto 2rem;
+    max-width: 100%;
+}
+
+/* Video y Canvas lado a lado */
 video, canvas {
-    width: 50%;
+    width: 45%; /* Ajustar el ancho para que se acomoden lado a lado */
+    border: 2px solid #000; /* Borde alrededor del video y canvas */
     border-radius: 8px;
     margin-bottom: 1rem;
     position: relative;
-    left: 25%;
 }
 
+/* Estilo para la imagen capturada */
+#captured-image img {
+    width: 80%;
+    max-width: 350px;
+    border: 2px solid #000;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+/* Botones */
 #capture, #generatePdf {
     width: 100%;
     margin-bottom: 1rem;
 }
 
-img {
-    min-width: 150px;
-    min-height: 50;
+/* Alineación de los botones */
+button {
+    border-radius: 5px;
+    font-size: 1.1rem;
+}
+
+/* Estilo del texto del encabezado */
+h1 {
+    color: #333;
+    font-size: 2rem;
+}
+
+/* Estilo para los párrafos */
+p {
+    color: #555;
+}
+
+#capturedImage {
+    display: none;
+}
+
+/* Ajustes para la visualización en pantallas pequeñas */
+@media (max-width: 767px) {
+    video, canvas {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    #captured-image img {
+        width: 90%;
+    }
 }

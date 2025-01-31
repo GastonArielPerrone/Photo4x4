@@ -9,13 +9,15 @@
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
         rel="stylesheet"
     >
-     <!-- Bootstrap Bundle with Popper -->
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-     <!-- jsPDF Library -->
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link rel="stylesheet" href="styles.css" type="text/css">
     <link rel="icon" href="content/Photo4x4.ico">
     <script src="https://kit.fontawesome.com/61f405be4a.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix"></script>
 </head>
 <body>
     <div class="container mt-5">
@@ -23,15 +25,26 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <h1 class="text-center mb-4">Photo 4x4</h1>
-                <p>¡Bienvenido/a al estudio de fotografías 4x4! Se aconseja que busque un fondo celeste/blanco según sea el motivo 
-                    que necesite de este servicio.
-                </p>
-                <video id="video" autoplay playsinline class="mb-3"></video>
-                <button id="capture" class="btn btn-primary"><i class="fa-solid fa-camera" style="color: #fafafa;"></i></button> <button id="generatePdf" class="btn btn-success mt-3"><i class="fa-regular fa-file-pdf" style="color: #ffffff;"></i></button>
-                <canvas id="canvas" class="mb-3"></canvas>
+                <p>¡Bienvenido/a al estudio de fotografías 4x4! Se aconseja que busque un fondo blanco.</p>
+                
+                <!-- Contenedor para el video y canvas -->
+                <div class="d-flex justify-content-between mb-3">
+                    <video id="video" autoplay playsinline class="border"></video>
+                    <canvas id="canvas" class="border"></canvas>
+                </div>
+
+                <!-- Imagen capturada -->
+                <div id="captured-image" class="text-center mb-3">
+                    <h3>Resultado:</h3>
+                    <img src="" alt="Imagen Capturada" id="capturedImage" class="border">
+                </div>
+
+                <button id="capture" class="btn btn-primary"><i class="fa-solid fa-camera" style="color: #fafafa;"></i></button>
+                <button id="generatePdf" class="btn btn-success mt-3"><i class="fa-regular fa-file-pdf" style="color: #ffffff;"></i></button>
             </div>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
